@@ -18,7 +18,7 @@ clean:
 	rm -f *.deb
 
 deb: clean
-	sed -i -e 's/"VERSION"/$(VERSION)/' Dockerfile && rm Dockerfile-e
+	sed -i -e 's/"VERSION"/$(VERSION)/' Dockerfile && rm Dockerfile
 	docker build -t $(DOCKER_IMAGE) .
 	bash -c 'ID=$$(docker run -i -a stdin $(DOCKER_IMAGE)) && docker cp $$ID:/data/aptfile_$(VERSION)_amd64.deb . && docker rm $$ID'
 	git checkout -- Dockerfile
